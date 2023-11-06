@@ -4,6 +4,40 @@ const { exec } = require('child_process');
 const config = require('./config.json');
 
 async function activate(context) {
+    OuvrirtTicketJira(context)
+    OuvrirProjetBB(context)
+}
+
+async function OuvrirProjetBB(context) {
+    const branchName = vscode.workspace.workspaceFolders[0].uri.path.split(`/`)[vscode.workspace.workspaceFolders[0].uri.path.split(`/`).length - 1]
+    const bitbucketUrl = `https://bitbucket.org/neofront/${branchName}/branches/?status=all`
+
+    const disposable = vscode.commands.registerCommand('extension.openBitbucketRepo', () => {
+        // Define the Chrome profile you want to use
+        const chromeProfile = 'Profile 6';
+        const chromeExecutablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+        const chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrl}"`;
+
+        // Execute the command
+        exec(chromeCommand, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Error opening Chrome: ${error.message}`);
+            } else {
+                console.log(`Chrome opened with profile: ${chromeProfile}`);
+            }
+        });
+    });
+
+    const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100000)
+    statusBarItem.text = `$(github-inverted)  Bitbucket ${branchName}`
+    statusBarItem.tooltip = `Ouvrir le repo Bitbucket ${branchName}`
+    statusBarItem.command = 'extension.openBitbucketRepo'
+    statusBarItem.show()
+
+    context.subscriptions.push(statusBarItem, disposable)
+}
+
+async function OuvrirtTicketJira(context) {
     let disposable = vscode.commands.registerCommand('extension.openJiraTicket', async () => {
         extractTicketNumberFromBranch()
     })
@@ -15,7 +49,6 @@ async function activate(context) {
     statusBarItem.show();
 
     context.subscriptions.push(statusBarItem, disposable);
-
 }
 
 async function extractTicketNumberFromBranch() {

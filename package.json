@@ -1,6 +1,6 @@
 {
-    "name": "ticketassocie",
-    "displayName": "ticketAssocie",
+    "name": "NeoteemTools",
+    "displayName": "NeoteemTools",
     "description": "Ouvre le ticket associé à une branche ",
     "version": "0.0.1",
     "publisher": "nicolassage",
@@ -17,8 +17,13 @@
     "contributes": {
         "commands": [
             {
-                "command": "ticketassocie.helloWorld",
+                "command": "NeoteemTools.helloWorld",
                 "title": "Hello World"
+            },
+            {
+                "command": "extension.openBitbucketRepo",
+                "title": "Open Bitbucket Repo",
+                "icon": "./images/bitbucket-icon.png"
             }
         ]
     },

@@ -13,3 +13,5 @@ au numéro dans la branche en cours.
 
 Ajoute le bouton "Bitbucket nom-projet" dans la status bar (en bas à gauche) de VScode qui ouvre le projet dans bitbucket.
 
+
+-> Paramétrage -> settings vscode, bien mettre le bon profile chrome

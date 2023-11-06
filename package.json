@@ -14,12 +14,11 @@
         "onStartupFinished"
     ],
     "main": "./extension.js",
+    "repository": {
+        "type": "git"
+    },
     "contributes": {
         "commands": [
-            {
-                "command": "NeoteemTools.helloWorld",
-                "title": "Hello World"
-            },
             {
                 "command": "extension.openBitbucketRepo",
                 "title": "Open Bitbucket Repo",
@@ -31,7 +30,7 @@
             "properties": {
                 "myExtension.chromeProfile": {
                     "type": "string",
-                    "default": "Profile 6",
+                    "default": "Default",
                     "description": "Chrome profile to use (chrome://version/ -> Chemin d'accès au profil)"
                 }
             }

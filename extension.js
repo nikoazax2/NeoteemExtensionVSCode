@@ -11,13 +11,20 @@ async function activate(context) {
 async function OuvrirProjetBB(context) {
     const branchName = vscode.workspace.workspaceFolders[0].uri.path.split(`/`)[vscode.workspace.workspaceFolders[0].uri.path.split(`/`).length - 1]
     const bitbucketUrl = `https://bitbucket.org/neofront/${branchName}/branches/?status=all`
+    const bitbucketUrlBack = `https://bitbucket.org/neot-v2/${branchName}/branches/?status=all`
 
     const disposable = vscode.commands.registerCommand('extension.openBitbucketRepo', () => {
         // Define the Chrome profile you want to use 
         let config = vscode.workspace.getConfiguration('myExtension');
         let chromeProfile = config.get('chromeProfile');
         const chromeExecutablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
-        const chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrl}"`;
+        let chromeCommand
+
+        if (['ws'].includes(branchName)) {
+            chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrlBack}"`;
+        } else {
+            chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrl}"`;
+        }
 
         // Execute the command
         exec(chromeCommand, (error, stdout, stderr) => {

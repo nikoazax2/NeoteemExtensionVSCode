@@ -1,19 +1,24 @@
-const vscode = require('vscode'); 
-const { exec } = require('child_process'); 
+const vscode = require('vscode');
+const { exec, execSync } = require('child_process');
+
+async function getBitbucketUrl() {
+    let url = await execSync('git config --get remote.origin.url', { encoding: 'utf8' });
+    return url.trim();
+}
 
 async function OuvrirProjetBB(context) {
-    const branchName = vscode.workspace.workspaceFolders[0].uri.path.split(`/`)[vscode.workspace.workspaceFolders[0].uri.path.split(`/`).length - 1]
-    const bitbucketUrl = `https://bitbucket.org/neofront/${branchName}/branches/?status=all`
-    const bitbucketUrlBack = `https://bitbucket.org/neot-v2/${branchName}/branches/?status=all`
-
-    const disposable = vscode.commands.registerCommand('extension.openBitbucketRepo', () => {
+    const folderName = vscode.workspace.workspaceFolders[0].uri.path.split(`/`)[vscode.workspace.workspaceFolders[0].uri.path.split(`/`).length - 1]
+    //const bitbucketUrl = `https://bitbucket.org/neofront/${folderName}/branches/?status=all`
+    //const bitbucketUrlBack = `https://bitbucket.org/neot-v2/${folderName}/branches/?status=all`
+    const disposable = vscode.commands.registerCommand('extension.openBitbucketRepo', async () => {
+        const bitbucketUrlBack = await getBitbucketUrl()
         // Define the Chrome profile you want to use 
-        let config = vscode.workspace.getConfiguration('myExtension');
+        let config = vscode.workspace.getConfiguration('NeoteemExtension');
         let chromeProfile = config.get('chromeProfile');
         const chromeExecutablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
         let chromeCommand
 
-        if (['ws'].includes(branchName)) {
+        if (['ws'].includes(folderName)) {
             chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrlBack}"`;
         } else {
             chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${bitbucketUrl}"`;
@@ -30,8 +35,8 @@ async function OuvrirProjetBB(context) {
     });
 
     const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100000)
-    statusBarItem.text = `$(github-inverted)  Bitbucket ${branchName}`
-    statusBarItem.tooltip = `Ouvrir le repo Bitbucket ${branchName}`
+    statusBarItem.text = `$(github-inverted)  Bitbucket ${folderName}`
+    statusBarItem.tooltip = `Ouvrir le repo Bitbucket ${folderName}`
     statusBarItem.command = 'extension.openBitbucketRepo'
     statusBarItem.show()
 

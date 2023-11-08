@@ -2,7 +2,7 @@
     "name": "NeoteemTools",
     "displayName": "NeoteemTools",
     "description": "Ouvre le ticket associé à une branche ",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "publisher": "nicolassage",
     "engines": {
         "vscode": "^1.82.0"
@@ -28,10 +28,15 @@
         "configuration": {
             "title": "Chrome profile",
             "properties": {
-                "myExtension.chromeProfile": {
+                "NeoteemExtension.chromeProfile": {
                     "type": "string",
                     "default": "Default",
                     "description": "Chrome profile to use (chrome://version/ -> Chemin d'accès au profil)"
+                },
+                "NeoteemExtension.urlProject": {
+                    "type": "string",
+                    "default": "https://neoteem.atlassian.net/browse/N2-",
+                    "description": "url du projet neoteem (ticket ouvert) sans le numéro du ticket"
                 }
             }
         }
@@ -54,7 +59,7 @@
         "simple-git": "^3.20.0"
     },
     "devDependencies": {
-        "@types/mocha": "^10.0.5",
+        "@types/mocha": "^10.0.6",
         "@types/node": "18.x",
         "@types/vscode": "^1.82.0",
         "@vscode/test-electron": "^2.3.4",

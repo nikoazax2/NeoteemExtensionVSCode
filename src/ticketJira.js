@@ -1,7 +1,6 @@
 const vscode = require('vscode');
 const simpleGit = require('simple-git');
-const { exec } = require('child_process');
-const config = require('../config.json');  
+const { exec } = require('child_process'); 
 
 async function OuvrirtTicketJira(context) {
     let disposable = vscode.commands.registerCommand('extension.openJiraTicket', async () => {
@@ -29,9 +28,10 @@ async function extractTicketNumberFromBranch() {
             const match = currentBranch.match(regex)
 
             if (match) {
-                let config = vscode.workspace.getConfiguration('myExtension');
+                let config = vscode.workspace.getConfiguration('NeoteemExtension');
                 let chromeProfile = config.get('chromeProfile');
-                const jiraUrl = `${config.project_url}${match}`;
+                let projectUrl = config.get('urlProject');
+                const jiraUrl = `${projectUrl}${match}`;
                 const chromeExecutablePath = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
                 const chromeCommand = `"${chromeExecutablePath}" --profile-directory="${chromeProfile}" "${jiraUrl}"`;
 

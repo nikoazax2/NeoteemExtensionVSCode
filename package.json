@@ -2,7 +2,7 @@
     "name": "NeoteemTools",
     "displayName": "NeoteemTools",
     "description": "Ouvre le ticket associé à une branche ",
-    "version": "0.0.7",
+    "version": "0.0.9",
     "publisher": "nicolassage",
     "engines": {
         "vscode": "^1.82.0"
@@ -17,6 +17,7 @@
     "repository": {
         "type": "git"
     },
+    "icon": "./images/logo-extension.png",
     "contributes": {
         "commands": [
             {
@@ -37,6 +38,21 @@
                     "type": "string",
                     "default": "https://neoteem.atlassian.net/browse/N2-",
                     "description": "url du projet neoteem (ticket ouvert) sans le numéro du ticket"
+                },
+                "NeoteemExtension.urlBBFront": {
+                    "type": "string",
+                    "default": "neofront",
+                    "description": "Nom du projet neoteem front bitbucket"
+                },
+                "NeoteemExtension.urlBBBack": {
+                    "type": "string",
+                    "default": "neot-v2",
+                    "description": "v du projet neoteem back bitbucket"
+                },
+                "NeoteemExtension.nomsBBBack": {
+                    "type": "string",
+                    "default": "[\"ws\"]",
+                    "description": "Nom de tout les projets neoteem back bitbucket (array)"
                 }
             }
         }
@@ -59,7 +75,7 @@
         "simple-git": "^3.20.0"
     },
     "devDependencies": {
-        "@types/mocha": "^10.0.7",
+        "@types/mocha": "^10.0.9",
         "@types/node": "18.x",
         "@types/vscode": "^1.82.0",
         "@vscode/test-electron": "^2.3.4",

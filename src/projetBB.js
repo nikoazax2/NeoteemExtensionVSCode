@@ -31,8 +31,7 @@ async function OuvrirProjetBB(context) {
                 console.log(`Chrome opened with profile: ${chromeProfile}`);
             }
         });
-    });
-
+    }); 
     const statusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100000)
     statusBarItem.text = `$(github-inverted)  Bitbucket ${folderName}`
     statusBarItem.tooltip = `Ouvrir le repo Bitbucket ${folderName}`

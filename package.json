@@ -11,7 +11,8 @@
         "Other"
     ],
     "activationEvents": [
-        "onStartupFinished"
+        "onStartupFinished",
+        "onCommand:extension.showQuickPick"
     ],
     "main": "./extension.js",
     "repository": {
@@ -24,8 +25,21 @@
                 "command": "extension.openBitbucketRepo",
                 "title": "Open Bitbucket Repo",
                 "icon": "./images/bitbucket-icon.png"
+            },
+            {
+                "command": "neoteem-tools.selectEnv",
+                "title": "Selectionner WS"
             }
         ],
+        "menus": {
+            "view/title": [
+                {
+                    "command": "neoteem-tools.selectEnv",
+                    "when": "view == neoteem-tools",
+                    "group": "navigation"
+                }
+            ]
+        },
         "configuration": {
             "title": "Chrome profile",
             "properties": {
@@ -55,6 +69,23 @@
                     "description": "Nom de tout les projets neoteem back bitbucket (array)"
                 }
             }
+        },
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "neoteem-tools",
+                    "title": "NeoteemTools",
+                    "icon": "images/logo-extension.png"
+                }
+            ]
+        },
+        "views": {
+            "neoteem-tools": [
+                {
+                    "id": "neoteem-tools",
+                    "name": "NeoteemTools"
+                }
+            ]
         }
     },
     "scripts": {

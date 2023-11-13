@@ -3,11 +3,8 @@ const vscode = require('vscode');
 const fs = require('fs');
 
 async function selectEnv(context) {
-
-    //config is in public/config/env.json
-    let config = vscode.workspace.getWorkspaceFolder(vscode.window.activeTextEditor.document.uri).uri.path + '/public/config/env.json';
-
-    config = config.slice(1);
+  
+    let config =vscode.workspace.workspaceFolders[0].uri.fsPath + '/public/config/env.json';
 
     const configJson = require(config);
     const envActuel = configJson['ws']

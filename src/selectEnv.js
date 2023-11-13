@@ -1,14 +1,16 @@
 const { json } = require('node:stream/consumers');
 const vscode = require('vscode');
 const fs = require('fs');
+const wss = require('./env.json');
 
 async function selectEnv(context) {
-  
-    let config =vscode.workspace.workspaceFolders[0].uri.fsPath + '/public/config/env.json';
 
-    const configJson = require(config);
+    let config = vscode.workspace.workspaceFolders[0].uri.fsPath + '/public/config/env.json';
+
+    let configJson = require(config);
+    configJson = { ...configJson, ...wss }
     const envActuel = configJson['ws']
-    const environments = Object.keys(configJson).slice(1);
+    let environments = Object.keys(configJson).filter(item => item !== "ws")
 
     const selectedEnv = await vscode.window.showQuickPick(environments, {
         placeHolder: `Selectionnez un WS (actuel: ${envActuel})`,

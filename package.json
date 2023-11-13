@@ -28,7 +28,7 @@
             },
             {
                 "command": "neoteem-tools.selectEnv",
-                "title": "Selectionner WS"
+                "title": "Sélectionner WS"
             }
         ],
         "menus": {

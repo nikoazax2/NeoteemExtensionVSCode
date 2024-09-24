@@ -2,7 +2,7 @@
     "name": "NeoteemTools",
     "displayName": "NeoteemTools",
     "description": "Ouvre le ticket associé à une branche ",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "publisher": "nicolassage",
     "engines": {
         "vscode": "^1.82.0"
